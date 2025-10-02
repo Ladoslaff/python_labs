@@ -20,7 +20,7 @@ avg = sum/2
 print(f"sum = {sum:.2f}", ";", f"avg={avg:.2f}")
 ```
 - скрин вывода - 
-![img02]()
+![img02](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img02.png)
 ------------------------
 
 -----------------------
@@ -37,7 +37,7 @@ print(f"НДС: {vat_amount:.2f} ₽")
 print(f"Итого к оплате: {total:.2f} ₽")
 ```
 - скрин вывода - 
-![img03]()
+![img03](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img03.png)
 ------------------------
 
 -----------------------
@@ -49,7 +49,7 @@ mm = minuts%60
 print(f"{h}:{mm:02d}")
 ```
 - скрин вывода - 
-![img04]()
+![img04](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img04.png)
 ------------------------
 
 -----------------------
@@ -60,5 +60,5 @@ print("Инициалы = ", fio[0][0], fio[1][0], fio[2][0], sep = '')
 print(len(fio[0] + fio[1] + fio[2])+2)
 ```
 - скрин вывода - 
-![img05]()
+![img05](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img05.png)
 ------------------------

@@ -1,6 +1,5 @@
-ЛАБОРАТОРНАЯ РАБОТА 1
------------------------
-Задание 1
+# ЛАБОРАТОРНАЯ РАБОТА 1
+## Задание 1
 ``` python
 name = input("Имя: ")
 age = int(input("Возраст: "))
@@ -8,10 +7,8 @@ print(f"Привет, {name}! Через год тебе будет {age + 1}."
 ```
 - скрин вывода - 
 ![img01](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img01.png)
------------------------
 
------------------------
-Задание 2
+## Задание 2
 ``` python
 num1 = float(input("a: "))
 num2 = float(input("b: "))
@@ -21,10 +18,8 @@ print(f"sum = {sum:.2f}", ";", f"avg={avg:.2f}")
 ```
 - скрин вывода - 
 ![img02](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img02.png)
-------------------------
 
------------------------
-Задание 3
+## Задание 3
 ``` python
 price = float(input("Введите цену = "))
 discount = float(input("Скидка = "))
@@ -38,10 +33,8 @@ print(f"Итого к оплате: {total:.2f} ₽")
 ```
 - скрин вывода - 
 ![img03](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img03.png)
-------------------------
 
------------------------
-Задание 4
+## Задание 4
 ``` python
 minuts = int(input("Введите кол-во минут = "))
 h = minuts//60
@@ -50,10 +43,8 @@ print(f"{h}:{mm:02d}")
 ```
 - скрин вывода - 
 ![img04](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img04.png)
-------------------------
 
------------------------
-Задание 5
+## Задание 5
 ``` python
 fio = input("Введите ФИО ").split()
 print("Инициалы = ", fio[0][0], fio[1][0], fio[2][0], sep = '')
@@ -61,4 +52,3 @@ print(len(fio[0] + fio[1] + fio[2])+2)
 ```
 - скрин вывода - 
 ![img05](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img05.png)
-------------------------

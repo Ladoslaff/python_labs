@@ -77,7 +77,7 @@ nums = []
 print(min_max(nums))
 ```
 - скрин вывода -
-![img01]()
+![img01](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img01.png)
 
 
 
@@ -95,7 +95,7 @@ nums = [1.0, 1, 2.5, 2.5, 0]
 print(unique_sorted(nums))
 ```
 - скрин вывода -
-![img02.png]()
+![img02.png](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img02.png)
 
 
 ``` python
@@ -119,7 +119,7 @@ nums = [[1, 2], "ab"]
 print(flatten(nums))
 ```
 - скрин вывода -
-![img03.png]()
+![img03.png](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img03.png)
 
 
 

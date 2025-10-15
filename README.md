@@ -12,7 +12,7 @@ print(f"Привет, {name}! Через год тебе будет {age + 1}."
 ``` python
 num1 = float(input("a: "))
 num2 = float(input("b: "))
-sum = num1 + num2
+sum = num1 + num2 
 avg = sum/2
 print(f"sum = {sum:.2f}", ";", f"avg={avg:.2f}")
 ```
@@ -52,3 +52,120 @@ print(len(fio[0] + fio[1] + fio[2])+2)
 ```
 - скрин вывода - 
 ![img05](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img05.png)
+
+
+# ЛАБОРАТОРНАЯ РАБОТА 2
+
+
+## Задание 1
+``` python
+def min_max(nums):
+    if len(nums) == 0:
+        raise ValueError
+    mini = min(nums)
+    maxi = max(nums)
+    return (mini, maxi)
+nums = [3, -1, 5, 5, 0] 
+print(min_max(nums))
+nums = [42]
+print(min_max(nums))
+nums = [-5, -2, -9]
+print(min_max(nums))
+nums = [1.5, 2, 2.0, -3.1]
+print(min_max(nums))
+nums = []
+print(min_max(nums))
+```
+- скрин вывода -
+![img01]()
+
+
+
+``` python
+def unique_sorted(nums):
+    nums = sorted(set(nums))
+    return nums
+nums = [3, 1, 2, 1, 3]
+print(unique_sorted(nums))
+nums = []
+print(unique_sorted(nums))
+nums = [-1, -1, 0, 2, 2]
+print(unique_sorted(nums))
+nums = [1.0, 1, 2.5, 2.5, 0]
+print(unique_sorted(nums))
+```
+- скрин вывода -
+![img02.png]()
+
+
+``` python
+def flatten(nums):
+    otvetik = []
+    for e in nums:
+        if type(e) == list or type(e) == tuple:
+            for i in range(len(e)):
+                if e[i] != '':
+                    otvetik.append(e[i])
+        else:
+            raise TypeError
+    return otvetik
+nums = [[1, 2], [3, 4]]
+print(flatten(nums))
+nums = [[1, 2], (3, 4, 5)]
+print(flatten(nums))
+nums = [[1], [], [2, 3]]
+print(flatten(nums))
+nums = [[1, 2], "ab"]
+print(flatten(nums))
+```
+- скрин вывода -
+![img03.png]()
+
+
+
+``` python
+
+```
+
+- скрин вывода -
+![]()
+
+
+
+
+``` python
+
+```
+
+- скрин вывода -
+![]()
+
+
+
+
+``` python
+
+```
+
+- скрин вывода -
+![]()
+
+
+
+``` python
+
+```
+
+- скрин вывода -
+![]()
+
+
+
+``` python
+
+```
+
+- скрин вывода -
+![]()
+
+

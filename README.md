@@ -179,7 +179,7 @@ nums = [[1, 2], [3]]
 print(col_sums(nums))
 ```
 - скрин вывода -
-![img06](//images/lab02/img06.png)
+![img06](/images/lab02/img06.png)
 
 
 

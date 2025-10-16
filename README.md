@@ -51,7 +51,7 @@ print("Инициалы = ", fio[0][0], fio[1][0], fio[2][0], sep = '')
 print(len(fio[0] + fio[1] + fio[2])+2)
 ```
 - скрин вывода - 
-![img05](//images/lab01/img05.png)
+![img05](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img05.png)
 
 
 # ЛАБОРАТОРНАЯ РАБОТА 2
@@ -95,7 +95,7 @@ nums = [1.0, 1, 2.5, 2.5, 0]
 print(unique_sorted(nums))
 ```
 - скрин вывода -
-![img02.png](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img02.png)
+![img02](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img02.png)
 
 
 ``` python
@@ -119,7 +119,7 @@ nums = [[1, 2], "ab"]
 print(flatten(nums))
 ```
 - скрин вывода -
-![img03.png](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img03.png)
+![img03](https://github.com/Ladoslaff/python_labs/blob/main/images/lab02/img03.png)
 
 
 ## Задание 2
@@ -152,7 +152,7 @@ nums = [[1, 2], [3]]
 print(row_sums(nums))
 ```
 - скрин вывода -
-![img05.png](/images/lab02/img05.png)
+![img05](/images/lab02/img05.png)
 
 
 
@@ -179,7 +179,7 @@ nums = [[1, 2], [3]]
 print(col_sums(nums))
 ```
 - скрин вывода -
-![img06.png](//images/lab02/img06.png)
+![img06](//images/lab02/img06.png)
 
 
 

@@ -51,7 +51,7 @@ print("Инициалы = ", fio[0][0], fio[1][0], fio[2][0], sep = '')
 print(len(fio[0] + fio[1] + fio[2])+2)
 ```
 - скрин вывода - 
-![img05](https://github.com/Ladoslaff/python_labs/blob/main/images/lab01/img05.png)
+![img05](//images/lab01/img05.png)
 
 
 # ЛАБОРАТОРНАЯ РАБОТА 2

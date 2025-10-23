@@ -1,3 +1,19 @@
+def transpose(mat):
+    if not mat:
+        return []
+    row_length = len(mat[0])
+    for row in mat:
+        if len(row) != row_length:
+            raise ValueError
+    result = []
+    for col_index in range(len(mat[0])):
+        new_row = []
+        for row in mat:
+            new_row.append(row[col_index])
+        result.append(new_row)
+    return result
+
+
 
 
 

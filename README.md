@@ -140,7 +140,7 @@ def transpose(mat):
     return result
 ```
 - скрин вывода -
-![]()
+![img04](/images/lab02/img04.png)
 
 
 

@@ -12,10 +12,16 @@ def transpose(mat):
             new_row.append(row[col_index])
         result.append(new_row)
     return result
-
-
-
-
+nums = [[1, 2, 3]]
+print(transpose(nums))
+nums = [[1], [2], [3]]
+print(transpose(nums))
+nums = [[1, 2], [3, 4]]
+print(transpose(nums))
+nums = []
+print(transpose(nums))
+nums = [[1, 2], [3]]
+print(transpose(nums))
 
 
 def row_sums(l):

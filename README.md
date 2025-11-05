@@ -302,4 +302,4 @@ print(f"Топ-2: {top}")
 ```
 
 - скрин вывода -
-![img03](/images/lab03/img03.pngs/)
+![img03](/images/lab03/img03.png)

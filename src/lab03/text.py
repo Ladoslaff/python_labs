@@ -14,21 +14,21 @@ def normalize(text, *, casefold=True, yo2e=True):
     words = result.split()
     result = ' '.join(words)
     return result
-print(normalize("ПрИвЕт\nМИр\t"))
-print(normalize("ёжик, Ёлка"))
-print(normalize("Hello\r\nWorld"))
-print(normalize("  двойные   пробелы  "))
+# print(normalize("ПрИвЕт\nМИр\t"))
+# print(normalize("ёжик, Ёлка"))
+# print(normalize("Hello\r\nWorld"))
+# print(normalize("  двойные   пробелы  "))
 
 
 def tokenize(text):
     pattern = r'\w+(?:-\w+)*'
     tokens = re.findall(pattern, text)
     return tokens
-print(tokenize("привет мир"))
-print(tokenize("hello,world!!!"))
-print(tokenize("по-настоящему круто" ))
-print(tokenize("2025 год"))
-print(tokenize("emoji 😀 не слово"))
+# print(tokenize("привет мир"))
+# print(tokenize("hello,world!!!"))
+# print(tokenize("по-настоящему круто" ))
+# print(tokenize("2025 год"))
+# print(tokenize("emoji 😀 не слово"))
 
 
 
@@ -50,6 +50,6 @@ tokens = ["a", "b", "a", "c", "b", "a"]
 freq = count_freq(tokens)
 top = top_n(freq, 2)
 
-print(f"Слова: {tokens}")
-print(f"Частоты: {freq}") 
-print(f"Топ-2: {top}")
+# print(f"Слова: {tokens}")
+# print(f"Частоты: {freq}") 
+# print(f"Топ-2: {top}")

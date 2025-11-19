@@ -450,6 +450,7 @@ csv_to_json(f"data/samples/people.csv",f"data/samples/people.json")
 ```
 - Скрины -
 ![img01](/images/lab05/img01.png)
+![img04](/images/lab05/img04.png)
 
 ## Задание 2
 ``` python

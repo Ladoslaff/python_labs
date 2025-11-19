@@ -39,3 +39,5 @@ def create_report(input_file="data/input.txt", output_file="data/report.csv", en
 
 if __name__ == "__main__":
     create_report()
+
+

@@ -1,36 +1,20 @@
 import re
 
-def normalize(text, *, casefold=True, yo2e=True):
+def normalize(text, casefold=True, yo2e=True):
     result = text
     if casefold:
-        result = result.casefold()
+        result = result.lower()
     
     if yo2e:
         result = result.replace('ё', 'е')
-        result = result.replace('Ё', 'е')
-    result = result.replace('\t', ' ')
-    result = result.replace('\n', ' ')
-    result = result.replace('\r', ' ')
-    words = result.split()
-    result = ' '.join(words)
+        result = result.replace('Ё', 'Е')
+    
     return result
-# print(normalize("ПрИвЕт\nМИр\t"))
-# print(normalize("ёжик, Ёлка"))
-# print(normalize("Hello\r\nWorld"))
-# print(normalize("  двойные   пробелы  "))
-
 
 def tokenize(text):
-    pattern = r'\w+(?:-\w+)*'
-    tokens = re.findall(pattern, text)
+    pattern = r'\b[а-яa-z]+\b'
+    tokens = re.findall(pattern, text, re.IGNORECASE)
     return tokens
-# print(tokenize("привет мир"))
-# print(tokenize("hello,world!!!"))
-# print(tokenize("по-настоящему круто" ))
-# print(tokenize("2025 год"))
-# print(tokenize("emoji 😀 не слово"))
-
-
 
 def count_freq(tokens):
     freq = {}
@@ -43,13 +27,6 @@ def count_freq(tokens):
 
 def top_n(freq, n=5):
     items = list(freq.items())
-    items.sort(key=lambda x: (-x[1], x[0])) # - x[1] - это частота слова. -x[1] - минус делает сортировку по убыванию. x[0] - сортировка по возрастанию (А→Я)
+    items.sort(key=lambda x: (-x[1], x[0]))
     top_items = items[:n]
     return top_items
-tokens = ["a", "b", "a", "c", "b", "a"]
-freq = count_freq(tokens)
-top = top_n(freq, 2)
-
-# print(f"Слова: {tokens}")
-# print(f"Частоты: {freq}") 
-# print(f"Топ-2: {top}")

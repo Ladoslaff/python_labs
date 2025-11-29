@@ -530,16 +530,16 @@ def stats(input_text, n=5):
         print(f"{word}: {count}")
 
 def main():
-    parser = argparse.ArgumentParser(description="CLI-утилиты для работы с текстом")
+    parser = argparse.ArgumentParser(description="CLI-утилиты")
     subparsers = parser.add_subparsers(dest="command")
 
     cat_parser = subparsers.add_parser("cat", help="Вывести содержимое файла")
     cat_parser.add_argument("--input", required=True, help="Путь к файлу")
     cat_parser.add_argument("-n", action="store_true", help="Нумеровать строки")
 
-    stats_parser = subparsers.add_parser("stats", help="Анализ частот слов")
+    stats_parser = subparsers.add_parser("stats", help="Анализы частрты слов")
     stats_parser.add_argument("--input", required=True, help="Путь к файлу")
-    stats_parser.add_argument("--top", type=int, default=5, help="Количество слов в топе")
+    stats_parser.add_argument("--top", type=int, default=5, help="Кол-во слов в топе")
 
     args = parser.parse_args()
 

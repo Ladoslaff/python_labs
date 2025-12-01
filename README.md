@@ -601,3 +601,5 @@ if __name__ == "__main__":
 ```
 ![img02](/images/lab06/img02.png)
 ![img03](/images/lab06/img03.png)
+
+плпоалалдвао

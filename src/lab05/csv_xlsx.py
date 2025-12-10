@@ -1,23 +1,23 @@
 import csv
 import os
 from openpyxl import Workbook
-from openpyxl.utils import*
+from openpyxl.utils import *
 
 
 def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
     if not os.path.exists(csv_path):
         raise FileNotFoundError(f"Файл не найден: {csv_path}")
-    
-    if not csv_path.lower().endswith('.csv'):
+
+    if not csv_path.lower().endswith(".csv"):
         raise ValueError("Входной файл должен иметь расширение .csv")
-    
+
     if not xlsx_path.lower().endswith(".xlsx"):
         raise ValueError("Выходной файл должен иметь расширение .xlsx")
-    
-    with open(csv_path, 'r', encoding='utf-8') as f:
+
+    with open(csv_path, "r", encoding="utf-8") as f:
         reader = csv.reader(f)
         rows = list(reader)
-    
+
     if not rows:
         raise ValueError("CSV-файл пуст")
 
@@ -36,4 +36,6 @@ def csv_to_xlsx(csv_path: str, xlsx_path: str) -> None:
         ws.column_dimensions[get_column_letter(i)].width = max(max_length, 8)
 
     wb.save(xlsx_path)
+
+
 csv_to_xlsx("data/samples/people_02.csv", "data/output.xlsx")

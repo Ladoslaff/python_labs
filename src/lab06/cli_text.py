@@ -2,20 +2,22 @@ import argparse
 import sys
 import os
 
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from lab03.text import normalize, tokenize, count_freq, top_n
 
+
 def cat(input_path, number_lines):
-    with open(input_path, 'r', encoding='utf-8') as file:
+    with open(input_path, "r", encoding="utf-8") as file:
         for i, line in enumerate(file, 1):
             if number_lines:
-                print(f"{i}: {line}", end='')
+                print(f"{i}: {line}", end="")
             else:
-                print(line, end='')
+                print(line, end="")
+
 
 def stats(input_text, n=5):
-    with open(input_text, 'r', encoding='utf-8') as f:
+    with open(input_text, "r", encoding="utf-8") as f:
         text = f.read()
 
     tokens = tokenize(normalize(text))
@@ -25,6 +27,7 @@ def stats(input_text, n=5):
     print(f"Топ-{n} самых частых слов:")
     for word, count in top_words:
         print(f"{word}: {count}")
+
 
 def main():
     parser = argparse.ArgumentParser(description="CLI-утилиты")
@@ -44,6 +47,7 @@ def main():
         cat(args.input, args.n)
     elif args.command == "stats":
         stats(args.input, args.top)
+
 
 if __name__ == "__main__":
     main()

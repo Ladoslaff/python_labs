@@ -1,4 +1,5 @@
 from text import normalize, tokenize, count_freq, top_n
+
 text = input("Введите текст: ")
 normalized_text = normalize(text)
 tokens = tokenize(normalized_text)

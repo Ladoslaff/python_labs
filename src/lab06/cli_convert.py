@@ -3,10 +3,11 @@ import sys
 import os
 
 # Добавляем путь для импорта
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from lab05.json_csv import json_to_csv, csv_to_json
 from lab05.csv_xlsx import csv_to_xlsx
+
 
 def main():
     parser = argparse.ArgumentParser(description="Конвертеры данных")
@@ -26,7 +27,7 @@ def main():
 
     args = parser.parse_args()
 
-    os.makedirs("data/out", exist_ok=True) #это типа для результатов папка
+    os.makedirs("data/out", exist_ok=True)  # это типа для результатов папка
 
     if args.command == "json2csv":
         json_to_csv(args.input, args.output)
@@ -37,6 +38,7 @@ def main():
     elif args.command == "csv2xlsx":
         csv_to_xlsx(args.input, args.output)
         print(f"Успешно: {args.input} -> {args.output}")
+
 
 if __name__ == "__main__":
     main()

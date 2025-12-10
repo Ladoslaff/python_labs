@@ -1,20 +1,23 @@
 import re
 
+
 def normalize(text, casefold=True, yo2e=True):
     result = text
     if casefold:
         result = result.lower()
-    
+
     if yo2e:
-        result = result.replace('ё', 'е')
-        result = result.replace('Ё', 'Е')
-    
+        result = result.replace("ё", "е")
+        result = result.replace("Ё", "Е")
+
     return result
 
+
 def tokenize(text):
-    pattern = r'\b[а-яa-z]+\b'
+    pattern = r"\b[а-яa-z]+\b"
     tokens = re.findall(pattern, text, re.IGNORECASE)
     return tokens
+
 
 def count_freq(tokens):
     freq = {}
@@ -24,6 +27,7 @@ def count_freq(tokens):
         else:
             freq[token] = 1
     return freq
+
 
 def top_n(freq, n=5):
     items = list(freq.items())

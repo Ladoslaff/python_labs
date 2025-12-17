@@ -757,3 +757,456 @@ def test_file_not_found_error():
 
 - Скрин вывода -
 ![img03](/images/lab07/img03.png)
+
+
+# ЛАБОРАТОРНАЯ РАБОТА 8
+## Задание А
+``` python
+from dataclasses import dataclass
+from datetime import datetime, date
+
+
+@dataclass
+class Student:
+    fio: str
+    birthdate: str
+    group: str
+    gpa: float
+
+    def __post_init__(self):
+        try:
+            datetime.strptime(self.birthdate, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("birthdate must be in format YYYY-MM-DD")
+        self.gpa = float(self.gpa)
+        if not (0 <= self.gpa <= 5):
+            raise ValueError(f"GPA должен быть от 0 до 5, получено {self.gpa}")
+
+    def age(self):
+        b = datetime.strptime(self.birthdate, "%Y-%m-%d").date()
+        today = date.today()
+        years = today.year - b.year
+        if (today.month, today.day) < (b.month, b.day):
+            years -= 1
+        return years
+
+    def to_dict(self):
+        return {
+            "fio": self.fio,
+            "birthdate": self.birthdate,
+            "group": self.group,
+            "gpa": self.gpa,
+        }
+
+
+    @classmethod
+    def from_dict(cls, d):
+        return cls(
+            fio=d["fio"],
+            birthdate=d["birthdate"],
+            group=d["group"],
+            gpa=float(d["gpa"]),  
+        )
+
+    def __str__(self):
+        return f"Студент: {self.fio}, группа {self.group}, GPA {self.gpa}, возраст {self.age()}"
+
+s = Student(fio="Иванов Петр", birthdate="2007-10-19", group="BIVT-25-8", gpa=4.8)
+print(f"Возраст: {s.age()}")
+print(f"{s.to_dict()}")
+s.from_dict(s.to_dict())
+print(f"{s.__str__()}")
+```
+- скрин вывода -
+![img01](/images/lab08/img01.png)
+
+# Задание B
+``` python
+import json
+from models import Student
+from pathlib import Path
+
+def save_to_json(students, filename):
+    data = [s.to_dict() for s in students]
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def load_from_json(filename):
+    with open(filename, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    
+    students = []
+    for item in data:
+        students.append(Student.from_dict(item))
+    return students
+
+if __name__ == "__main__":
+    data_folder = Path("/Users/vladislav/python_labs/data/lab08")
+    data_folder.mkdir(parents=True, exist_ok=True)
+    
+    input_file = data_folder / "students_input.json"
+    output_file = data_folder / "students_output.json"
+    
+    example_students = [
+        Student(fio="Иванов Петр", birthdate="2007-10-19", group="BIVT-25-8", gpa=4.8),
+        Student(fio="Петров Иван", birthdate="2006-09-28", group="BIVT-25-12", gpa=4.6),
+    ]
+    
+    save_to_json(example_students, input_file)
+    print(f"Создан: {input_file}")
+    
+    loaded_students = load_from_json(input_file)
+    print("\nЗагружено:")
+    for student in loaded_students:
+        print(f"  {student}")
+    
+    save_to_json(loaded_students, output_file)
+    print(f"\nСохранен: {output_file}")
+```
+-скрин вывода -
+![img02](/images/lab08/img02.png)
+
+
+
+# ЛАБОРАТОРНАЯ РАБОТА 9
+## Задание А
+``` python
+import csv
+from pathlib import Path
+from models import Student
+
+class Group:
+    def __init__(self, file_path):
+        self.file = Path(file_path)
+        self._create_file()
+
+    def _create_file(self):
+        if not self.file.exists():
+            with self.file.open("w", encoding="utf-8", newline="") as f:
+                writer = csv.writer(f)
+                writer.writerow(["fio", "birthdate", "group", "gpa"])
+
+    def _load(self):
+        data = []
+        with self.file.open("r", encoding="utf-8", newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                data.append(row)
+        return data
+
+    def _save(self, data):
+        with self.file.open("w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=["fio", "birthdate", "group", "gpa"])
+            writer.writeheader()
+            writer.writerows(data)
+
+    def all(self):
+        data = self._load()
+        return [Student(**r) for r in data]
+
+    def add(self, student):
+        data = self._load()
+        data.append({
+            "fio": student.fio,
+            "birthdate": student.birthdate,
+            "group": student.group,
+            "gpa": str(student.gpa)
+        })
+        self._save(data)
+
+    def find(self, text):
+        text = text.lower()
+        data = self._load()
+        found = []
+        for row in data:
+            if text in row["fio"].lower():
+                found.append(Student(**row))
+        return found
+
+    def remove(self, name):
+        data = self._load()
+        new_data = [r for r in data if r["fio"] != name]
+        self._save(new_data)
+
+    def update(self, name, **new_data):
+        data = self._load()
+        for row in data:
+            if row["fio"] == name:
+                for key, value in new_data.items():
+                    if key in ["fio", "birthdate", "group", "gpa"]:
+                        row[key] = value
+        self._save(data)
+
+    def count(self):
+        return len(self._load())
+
+    def average_gpa(self):
+        data = self._load()
+        if not data:
+            return 0
+        total = sum(float(r["gpa"]) for r in data)
+        return round(total / len(data), 2)
+
+
+if __name__ == "__main__":
+    folder = Path("/Users/vladislav/python_labs/data/lab09")
+    folder.mkdir(parents=True, exist_ok=True)
+    
+    csv_path = folder / "students.csv"
+    
+    if csv_path.exists():
+        csv_path.unlink()
+    
+    group = Group(csv_path)
+    
+    print("Добавляем студентов")
+    students_to_add = [
+        Student(fio="Соколов Андрей", birthdate="2007-11-15", group="БИВТ-25-1", gpa=4.8),
+        Student(fio="Волкова Екатерина", birthdate="2004-05-22", group="БИВТ-25-2", gpa=3.2),
+        Student(fio="Кузнецов Михаил", birthdate="2008-03-10", group="БИВТ-25-3", gpa=3.7),
+        Student(fio="Павлова Ольга", birthdate="2002-07-18", group="БИВТ-25-4", gpa=4.9),
+        Student(fio="Новиков Алексей", birthdate="2003-01-30", group="БИВТ-25-1", gpa=4.4),
+    ]
+    
+    for student in students_to_add:
+        group.add(student)
+    
+    print(f"Добавлено студентов: {group.count()}")
+    
+    print("\nВсе студенты:")
+    all_students = group.all()
+    for student in all_students:
+        print(student)
+    
+    print("\nПоиск 'Соколов':")
+    found_students = group.find("Соколов")
+    for student in found_students:
+        print(f"Найден: {student}")
+    
+    print("\nОбновляем Соколова:")
+    group.update("Соколов Андрей", gpa=4.6, group="БИВТ-25-2")
+    after_update = group.find("Соколов Андрей")
+    if after_update:
+        print(f"После обновления: {after_update[0]}")
+    
+    print("\nУдаляем Новикова:")
+    group.remove("Новиков Алексей")
+    print(f"Теперь студентов: {group.count()}")
+    
+    print(f"\nСредний балл: {group.average_gpa()}")
+    print(f"Файл: {csv_path}")
+```
+-скрин вывода -
+![img01](/images/lab09/img01.png)
+
+
+
+# ЛАБОРАТОРНАЯ РАБОТА 10
+## Задание А
+``` python
+from collections import deque
+
+class MyStack:
+    def __init__(self):
+        self.items = []
+
+    def push(self, item):
+        self.items.append(item)
+
+    def pop(self):
+        if self.is_empty():
+            raise IndexError("Стек пуст")
+        return self.items.pop()
+
+    def top(self):
+        if self.is_empty():
+            return None
+        return self.items[-1]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def size(self):
+        return len(self.items)
+
+
+class MyQueue:
+    def __init__(self):
+        self.items = deque()
+
+    def add(self, item):
+        self.items.append(item)
+
+    def remove(self):
+        if self.is_empty():
+            raise IndexError("Очередь пуста")
+        return self.items.popleft()
+
+    def front(self):
+        if self.is_empty():
+            return None
+        return self.items[0]
+
+    def is_empty(self):
+        return len(self.items) == 0
+
+    def __len__(self):
+        return len(self.items)
+
+
+if __name__ == "__main__":
+    print("Тестирование стека:")
+    stack = MyStack()
+    
+    print("Пустой ли стек?", stack.is_empty())
+    
+    stack.push(5)
+    stack.push(15)
+    stack.push(25)
+    
+    print("Верхний элемент:", stack.top())
+    print("Извлекаем:", stack.pop())
+    print("Извлекаем:", stack.pop())
+    print("Размер стека:", stack.size())
+    print("Пустой ли стек?", stack.is_empty())
+    
+    print()
+    
+    print("Тестирование очереди:")
+    queue = MyQueue()
+    
+    print("Пустая ли очередь?", queue.is_empty())
+    
+    queue.add("первый")
+    queue.add("второй")
+    queue.add("третий")
+    
+    print("Первый в очереди:", queue.front())
+    print("Забираем:", queue.remove())
+    print("Забираем:", queue.remove())
+    print("Осталось элементов:", len(queue))
+    print("Пустая ли очередь?", queue.is_empty())
+```
+-скрин вывода -
+![img01](/images/lab10/lab01.png)
+
+
+## Задание В
+``` python
+class ListNode:
+    def __init__(self, value, next_node=None):
+        self.value = value
+        self.next = next_node
+
+
+class LinkedList:
+    def __init__(self):
+        self.first = None
+        self.last = None
+        self.length = 0
+
+    def add_last(self, value):
+        new_node = ListNode(value)
+        if self.first is None:
+            self.first = new_node
+            self.last = new_node
+        else:
+            self.last.next = new_node
+            self.last = new_node
+        self.length += 1
+    
+    def add_first(self, value):
+        new_node = ListNode(value, self.first)
+        self.first = new_node
+        if self.last is None:
+            self.last = new_node
+        self.length += 1
+
+    def insert_at(self, position, value):
+        if position < 0 or position > self.length:
+            raise IndexError(f"Некорректная позиция: {position}")
+
+        if position == 0:
+            self.add_first(value)
+            return
+
+        if position == self.length:
+            self.add_last(value)
+            return
+
+        current = self.first
+        for _ in range(position - 1):
+            current = current.next
+
+        new_node = ListNode(value, current.next)
+        current.next = new_node
+        self.length += 1
+
+    def delete_at(self, position):
+        if position < 0 or position >= self.length:
+            raise IndexError(f"Некорректная позиция: {position}")
+
+        if position == 0:
+            deleted_value = self.first.value
+            self.first = self.first.next
+            if self.first is None:
+                self.last = None
+            self.length -= 1
+            return deleted_value
+
+        current = self.first
+        for _ in range(position - 1):
+            current = current.next
+
+        deleted_node = current.next
+        current.next = deleted_node.next
+
+        if deleted_node is self.last:
+            self.last = current
+
+        self.length -= 1
+        return deleted_node.value
+
+    def __iter__(self):
+        current = self.first
+        while current is not None:
+            yield current.value
+            current = current.next
+
+    def __len__(self):
+        return self.length
+
+    def __repr__(self):
+        values = list(self)
+        return f"LinkedList({values})"
+
+
+if __name__ == "__main__":
+    print("Демонстрация работы связного списка")
+    
+    lst = LinkedList()
+
+    lst.add_last(10)
+    lst.add_last(20)
+    lst.add_last(30)
+    print("После добавления в конец:", list(lst))
+    
+    lst.add_first(5)
+    print("После добавления в начало:", list(lst))
+    
+    lst.insert_at(2, 99)
+    print("После вставки на позицию 2:", list(lst))
+    
+    deleted = lst.delete_at(3)
+    print(f"Удален элемент на позиции 3: {deleted}")
+    print("После удаления:", list(lst))
+    
+    print(f"Длина списка: {len(lst)}")
+    print(f"Строковое представление: {repr(lst)}")
+    
+    print("\nИтерация по списку:")
+    for item in lst:
+        print(f"  - {item}")
+```
+-скрин вывода -
+![img02](/images/lab10/img02.png)

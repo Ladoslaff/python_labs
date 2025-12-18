@@ -1088,7 +1088,7 @@ if __name__ == "__main__":
     print("Пустая ли очередь?", queue.is_empty())
 ```
 -скрин вывода -
-![img01](/images/lab10/lab01.png)
+![img01](/images/lab10/img01.png)
 
 
 ## Задание В
